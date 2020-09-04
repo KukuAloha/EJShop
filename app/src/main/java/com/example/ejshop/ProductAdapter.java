@@ -1,0 +1,56 @@
+package com.example.ejshop;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+
+    Context context;
+    List<Product> products;
+
+    public ProductAdapter(List<Product> products, Context context){
+        this.context = context;
+        this.products = products;
+    }
+
+    @NonNull
+    @Override
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
+        return new ProductViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        holder.txtName.setText(products.get(position).getName());
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return products.size();
+    }
+
+    class ProductViewHolder extends RecyclerView.ViewHolder {
+
+        TextView txtName;
+        ImageView imgProd;
+
+        public ProductViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtName = itemView.findViewById(R.id.txtName);
+            imgProd = itemView.findViewById(R.id.imgProd);
+        }
+    }
+
+}
