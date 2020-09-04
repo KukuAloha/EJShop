@@ -10,15 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     Context context;
-    List<Product> products;
+    ArrayList<Product> products;
 
-    public ProductAdapter(List<Product> products, Context context){
+    public ProductAdapter(ArrayList<Product> products, Context context){
         this.context = context;
         this.products = products;
     }
@@ -26,14 +28,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         holder.txtName.setText(products.get(position).getName());
-
+        //Picasso.Builder builder = new Picasso.Builder(context);
+        //builder.build().load(products.get(position).getImgUrl()).into(holder.imgProd);
+        Picasso.get().load(products.get(position).getImgUrl()).into(holder.imgProd);
     }
 
     @Override

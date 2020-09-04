@@ -2,14 +2,14 @@ package com.example.ejshop;
 
 public class Product {
     private String name;
-    private String price;
+    private Long price;
     private String description;
     private String imgUrl;
 
     public Product() {
     }
 
-    public Product(String name, String price, String description, String imgUrl) {
+    public Product(String name, Long price, String description, String imgUrl) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -24,11 +24,11 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
