@@ -1,4 +1,4 @@
-package com.example.ejshop;
+package com.example.ejshop.model;
 
 public class Product {
     private String name;
