@@ -11,19 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ejshop.R;
-import com.example.ejshop.model.Product;
+import com.example.ejshop.model.PopularProduct;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAdapter.ProductViewHolder> {
 
     Context context;
-    ArrayList<Product> products;
+    ArrayList<PopularProduct> popularProducts;
 
-    public ProductAdapter(ArrayList<Product> products, Context context){
+    public PopularProductAdapter(ArrayList<PopularProduct> popularProducts, Context context){
         this.context = context;
-        this.products = products;
+        this.popularProducts = popularProducts;
     }
 
     @NonNull
@@ -35,15 +35,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.txtName.setText(products.get(position).getName());
+        holder.txtName.setText(popularProducts.get(position).getName());
         //Picasso.Builder builder = new Picasso.Builder(context);
         //builder.build().load(products.get(position).getImgUrl()).into(holder.imgProd);
-        Picasso.get().load(products.get(position).getImgUrl()).into(holder.imgProd);
+        Picasso.get().load(popularProducts.get(position).getImgUrl()).into(holder.imgProd);
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return popularProducts.size();
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {

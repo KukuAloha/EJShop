@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ejshop.adapter.DiscountAdapter;
-import com.example.ejshop.adapter.ProductAdapter;
+import com.example.ejshop.adapter.NewProductsAdapter;
+import com.example.ejshop.adapter.PopularProductAdapter;
 import com.example.ejshop.model.Discount;
-import com.example.ejshop.model.Product;
+import com.example.ejshop.model.NewProducts;
+import com.example.ejshop.model.PopularProduct;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,16 +24,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerViewProduct, recyclerViewDiscount;
+    private RecyclerView recyclerViewProduct, recyclerViewDiscount, recyclerViewNewProduct;
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReferenceProduct, databaseReferenceDiscount;
 
-    ArrayList<Product> productList;
+    ArrayList<PopularProduct> popularProductList;
     ArrayList<Discount> discountList;
+    ArrayList<NewProducts> newProductsList;
 
-    private ProductAdapter productAdapter;
+    private PopularProductAdapter popularProductAdapter;
     private DiscountAdapter discountAdapter;
+    private NewProducts newProductsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +44,23 @@ public class MainActivity extends AppCompatActivity {
 
         readProductData();
         readDiscountData();
+        //readNewProductData();
     }
 
     public void readProductData(){
-        productList = new ArrayList<Product>();
+        popularProductList = new ArrayList<PopularProduct>();
         recyclerViewProduct = findViewById(R.id.productRV);
         recyclerViewProduct.setLayoutManager(new LinearLayoutManager(this));
-        databaseReferenceProduct = FirebaseDatabase.getInstance().getReference().child("product");
+        databaseReferenceProduct = FirebaseDatabase.getInstance().getReference().child("popularProducts");
         databaseReferenceProduct.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    Product product = dataSnapshot.getValue(Product.class);
-                    productList.add(product);
+                    PopularProduct popularProduct = dataSnapshot.getValue(PopularProduct.class);
+                    popularProductList.add(popularProduct);
                 }
-                productAdapter = new ProductAdapter(productList, MainActivity.this);
-                recyclerViewProduct.setAdapter(productAdapter);
+                popularProductAdapter = new PopularProductAdapter(popularProductList, MainActivity.this);
+                recyclerViewProduct.setAdapter(popularProductAdapter);
             }
 
             @Override
@@ -81,6 +85,29 @@ public class MainActivity extends AppCompatActivity {
                 discountAdapter = new DiscountAdapter(discountList, MainActivity.this);
                 recyclerViewDiscount.setAdapter(discountAdapter);
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "Smth is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void readNewProductData(){
+        newProductsList = new ArrayList<NewProducts>();
+        recyclerViewNewProduct = findViewById(R.id.newProductRV);
+        //recyclerViewNewProduct.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        databaseReferenceDiscount = FirebaseDatabase.getInstance().getReference().child("newProducts");
+        databaseReferenceDiscount.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    NewProducts newProducts = dataSnapshot.getValue(NewProducts.class);
+                    newProductsList.add(newProducts);
+                }
+                newProductsAdapter = new NewProductsAdapter(newProductsList,MainActivity.this);
+                }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -1,15 +1,15 @@
 package com.example.ejshop.model;
 
-public class Product {
+public class NewProducts {
     private String name;
     private Long price;
     private String description;
     private String imgUrl;
 
-    public Product() {
+    public NewProducts() {
     }
 
-    public Product(String name, Long price, String description, String imgUrl) {
+    public NewProducts(String name, Long price, String description, String imgUrl) {
         this.name = name;
         this.price = price;
         this.description = description;
