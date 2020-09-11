@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private PopularProductAdapter popularProductAdapter;
     private DiscountAdapter discountAdapter;
-    private NewProducts newProductsAdapter;
+    private NewProductsAdapter newProductsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         readProductData();
         readDiscountData();
-        //readNewProductData();
+        readNewProductData();
     }
 
     public void readProductData(){
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     public void readNewProductData(){
         newProductsList = new ArrayList<NewProducts>();
         recyclerViewNewProduct = findViewById(R.id.newProductRV);
-        //recyclerViewNewProduct.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recyclerViewNewProduct.setLayoutManager(new LinearLayoutManager(this));
         databaseReferenceDiscount = FirebaseDatabase.getInstance().getReference().child("newProducts");
         databaseReferenceDiscount.addValueEventListener(new ValueEventListener() {
             @Override
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     newProductsList.add(newProducts);
                 }
                 newProductsAdapter = new NewProductsAdapter(newProductsList,MainActivity.this);
+                recyclerViewNewProduct.setAdapter(newProductsAdapter);
                 }
 
             @Override
