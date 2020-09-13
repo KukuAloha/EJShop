@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.ejshop.adapter.DiscountAdapter;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewProduct, recyclerViewDiscount, recyclerViewNewProduct;
+    //private SearchView searchView;
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReferenceProduct, databaseReferenceDiscount;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //searchView = findViewById(R.id.searchView);
 
         readProductData();
         readDiscountData();
