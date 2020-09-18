@@ -39,6 +39,7 @@
         android:layout_marginStart="176dp"
         android:layout_marginTop="113dp"
         android:layout_marginEnd="177dp"
+        android:textSize="24dp"
         android:text="WELCOME to EJShop"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"

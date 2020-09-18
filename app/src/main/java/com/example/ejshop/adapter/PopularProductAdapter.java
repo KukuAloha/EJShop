@@ -36,8 +36,6 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         holder.txtName.setText(popularProducts.get(position).getName());
-        //Picasso.Builder builder = new Picasso.Builder(context);
-        //builder.build().load(products.get(position).getImgUrl()).into(holder.imgProd);
         Picasso.get().load(popularProducts.get(position).getImgUrl()).into(holder.imgProd);
     }
 
