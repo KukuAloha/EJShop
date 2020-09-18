@@ -1,11 +1,14 @@
 package com.example.ejshop;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.ejshop.adapter.DiscountAdapter;
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Discount> discountList;
     ArrayList<NewProducts> newProductsList;
 
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle mToggle;
+
     private PopularProductAdapter popularProductAdapter;
     private DiscountAdapter discountAdapter;
     private NewProductsAdapter newProductsAdapter;
@@ -51,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        drawerLayout = findViewById(R.id.drawer);
+        mToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         readFirestoreData();
         //readProductData();
@@ -83,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         productAdapter.stopListening();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
